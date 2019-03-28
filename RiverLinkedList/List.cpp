@@ -13,7 +13,6 @@ List::List()
 
 List::~List()
 {
-	destroy();
 }
 
 const ListItem & List::getItem() const
@@ -21,8 +20,9 @@ const ListItem & List::getItem() const
 	if (cursorM!=NULL)
 		return cursorM->item;
 	else {
+		ListItem *temp = new ListItem();
 		cout << "Unable to get item, cursor is null!";
-		return;
+		return *temp;
 	}
 }
 

@@ -85,7 +85,7 @@ void Hydro::menu()
 }
 
 void Hydro::displayHeader() {
-	cout << "H-E-F Hydropower Studies – Winter 2019\nProgram: Flow Studies\nVersion : 1.0\nLab section : B01\nProduced by : Your name\n";
+	cout << "H-E-F Hydropower Studies - Winter 2019\nProgram: Flow Studies\nVersion : 1.0\nLab section : B01\nProduced by : Your name\n";
 	pressEnter();
 }
 Hydro::Hydro() {
