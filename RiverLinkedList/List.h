@@ -1,15 +1,11 @@
 #pragma once
 
 struct ListItem {
-	ListItem();
-	ListItem(int y, double f);
-	ListItem& operator =(const ListItem& rhs);
 	int year;
 	double flow;
 };
 
 struct Node {
-	Node(ListItem i);
 	ListItem item;
 	Node *next;
 };

@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "List.h"
+#include <iostream>
+using namespace std;
 
 
 List::List()
 {
-	
-	headM(ListItem(0, 0.0););
+	headM = new Node();
 }
 
 
@@ -16,6 +17,7 @@ List::~List()
 const ListItem & List::getItem() const
 {
 	// TODO: insert return statement here
+	return cursorM->item;
 }
 
 void List::reset()
@@ -24,24 +26,10 @@ void List::reset()
 
 bool List::isOn() const
 {
-	if (cursor != 0) {
+	if (cursorM != NULL) {
 		return true;
 	}
 	return false;
 }
 
-ListItem::ListItem(int y, double f)
-{
-	year = y;
-	flow = f;
-}
 
-ListItem & ListItem::operator=(const ListItem & rhs)
-{
-	// TODO: insert return statement here
-}
-
-Node::Node(ListItem i)
-{
-	item = i;
-}
