@@ -13,8 +13,8 @@ struct Node {
 class List
 {
 public:
-	int f = 12;
 	List();
+
 	~List();
 
 	const ListItem& getItem() const;
@@ -55,7 +55,9 @@ private:
 
 	// Initially is set to NULL, but it may point to any node.
 	Node *cursorM;
+
 	void copy(const List& source);
+
 	void destroy();
 };
 

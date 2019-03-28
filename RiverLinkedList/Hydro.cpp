@@ -9,7 +9,7 @@ int Hydro::main() {
 	
 	displayHeader();
 	numOfData = readData();
-	cout << numOfData << "\n";
+	//cout << numOfData << "\n";
 	menu();
 	//addData();
 	return 0;
@@ -81,7 +81,6 @@ void Hydro::menu()
 		case 5: exit(1);
 		}
 		cin.ignore();
-		//Hello
 	}
 }
 

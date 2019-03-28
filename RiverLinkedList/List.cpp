@@ -6,22 +6,29 @@ using namespace std;
 
 List::List()
 {
-	headM = new Node();
+	//headM = new Node();
+	headM = NULL;
 }
 
 
 List::~List()
 {
+	destroy();
 }
 
 const ListItem & List::getItem() const
 {
-	// TODO: insert return statement here
-	return cursorM->item;
+	if (cursorM!=NULL)
+		return cursorM->item;
+	else {
+		cout << "Unable to get item, cursor is null!";
+		return;
+	}
 }
 
 void List::reset()
 {
+	cursorM = headM;
 }
 
 bool List::isOn() const
@@ -30,6 +37,33 @@ bool List::isOn() const
 		return true;
 	}
 	return false;
+}
+
+const Node * List::cursor() const
+{
+	return cursorM;
+}
+
+void List::forward()
+{
+	if (cursorM != NULL) {
+		cursorM = cursorM->next;
+	}
+	else {
+		cout << "Cursor is null, now resetting.";
+		reset();
+	}
+}
+
+int List::count() const
+{
+	Node *temp = headM;
+	int counter = 0;
+	while (temp != NULL) {
+		temp = temp->next;
+		counter++;
+	}
+	return counter;
 }
 
 
