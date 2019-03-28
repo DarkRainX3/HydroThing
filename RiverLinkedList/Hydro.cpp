@@ -3,6 +3,8 @@
 #include "List.h"
 #include <iostream>
 #include <fstream>
+#define underline "\033[4m"
+#define CLOSEUNDERLINE "\033[0m"
 using namespace std;
 
 int Hydro::main() {
@@ -16,7 +18,7 @@ int Hydro::main() {
 }
 
 void Hydro::pressEnter() {
-	cout<<"<<<<Press Enter to Continue>>>>";
+	cout<<"\n<<<<Press Enter to Continue>>>>\n";
 	cin.ignore();
 }
 
@@ -28,8 +30,18 @@ void Hydro::addData() {
 	cout << "Enter the flow.\n";
 	float flow;
 	cin >> flow;
-	cout << year << " " << flow;
-	//TODO
+	//cout << year << " " << flow;
+	if (flowData->isExist(year)) {
+		cout << "Error: duplicate data.\n";
+		return;
+	}
+	else {
+		ListItem temp = ListItem();
+		temp.flow = flow;
+		temp.year = year;
+		flowData->insert(temp);
+		cout << "New record inserted successfully.";
+	}
 }
 
 int Hydro::readData() {
@@ -45,7 +57,12 @@ int Hydro::readData() {
 		int a;
 		float b;
 		inFile >> a >> b;
-		cout << a << " " << b << endl;
+		ListItem temp = ListItem();
+		temp.flow = b;
+		temp.year = a;
+		flowData->insert(temp);
+		//printElement(a, b);
+		//cout << a << " " << b << endl;
 		counter++;
 		//TODO 
 	}
@@ -67,9 +84,12 @@ void Hydro::menu()
 		cin >> choice;
 		switch (choice) {
 		case 1: cout << "Test1\n";//TODO;
+			display();
 			pressEnter();
 			break;
-		case 2: cout << "Test2\n";
+		case 2: 
+			//cout << "Test2\n";
+			addData();
 			pressEnter();
 			break;
 		case 3: cout << "Test3\n";
@@ -84,6 +104,29 @@ void Hydro::menu()
 	}
 }
 
+void Hydro::display()
+{
+	flowData->reset();
+	cout << setw(10) << underline << "Year" << CLOSEUNDERLINE << setw(8) << underline << "Flow (in billions of cubic meters)" << CLOSEUNDERLINE << endl;
+	while (flowData->isOn()) {
+		ListItem temp = flowData->getItem();
+		printElement(temp.year, temp.flow);
+		flowData->forward();
+	}
+	cout << "The annual average of the flow is: " << average() << " million cubic meters.\n";
+	cout << "The median flow is: " << median() << " million cubic meters.";
+}
+
+float Hydro::average()
+{
+	return flowData->avg();
+}
+
+float Hydro::median()
+{
+	return flowData->med();
+}
+
 void Hydro::displayHeader() {
 	cout << "H-E-F Hydropower Studies - Winter 2019\nProgram: Flow Studies\nVersion : 1.0\nLab section : B01\nProduced by : Your name\n";
 	pressEnter();
@@ -94,4 +137,9 @@ Hydro::Hydro() {
 
 Hydro::~Hydro()
 {
+}
+
+void Hydro::printElement(int year, double flow)
+{
+	cout <<setw(10) << year << setw(15) << flow << endl;	
 }

@@ -1,10 +1,13 @@
 #pragma once
 #include "List.h"
+#include <iomanip>
 class Hydro
 {
 public:
 	Hydro();
 	~Hydro();
+	void printElement(int year, double flow);
+
 	int main();
 	void displayHeader();
 	void addData();

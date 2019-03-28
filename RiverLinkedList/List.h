@@ -17,6 +17,13 @@ public:
 
 	~List();
 
+	float avg();
+
+	float med();
+
+	bool isExist(int year);
+	// PROMISES: returns true if year already exist in list.
+
 	const ListItem& getItem() const;
 	// REQUIRES: cursorM != NULL.
 	// PROMISES: returns the item to which cursorM is attached to.
@@ -28,7 +35,7 @@ public:
 	// PROMISES: returns true if cursorM != NULL, otherwise
 	// returns false
 
-	const Node* cursor()const;
+	const Node* cursor()const; //const after a function means function cannot make changes to member variables
 	// PROMISES: returns cursorM.
 
 	void forward();
