@@ -6,8 +6,9 @@ class Hydro
 public:
 	Hydro();
 	~Hydro();
+	//********Dont copy*************//
 	void printElement(int year, double flow);
-
+	//*******************************//
 	int main();
 	void displayHeader();
 	void addData();

@@ -17,12 +17,16 @@ public:
 
 	~List();
 
+	//********************dont copy, these are custom functions**********//
 	float avg();
-
 	float med();
-
+	void swap(float *xp, float *yp);
+	void bubbleSort(float arr[], int n);
+	void printArray(float arr[], int size);
 	bool isExist(int year);
 	// PROMISES: returns true if year already exist in list.
+	//***************************************************//
+
 
 	const ListItem& getItem() const;
 	// REQUIRES: cursorM != NULL.

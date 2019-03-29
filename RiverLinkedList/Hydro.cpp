@@ -40,7 +40,7 @@ void Hydro::addData() {
 		temp.flow = flow;
 		temp.year = year;
 		flowData->insert(temp);
-		cout << "New record inserted successfully.";
+		cout << "New record inserted successfully.\n";
 	}
 }
 
@@ -81,24 +81,38 @@ void Hydro::menu()
 		5. Quit\n\
 		Enter your choice(1, 2, 3, 4, or 5) : \n";
 		int choice;
-		cin >> choice;
+		try {
+			choice = (int)cin.get()-48;
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+			choice = 0;
+		}
+		
 		switch (choice) {
-		case 1: cout << "Test1\n";//TODO;
+		case 1:
 			display();
 			pressEnter();
 			break;
 		case 2: 
-			//cout << "Test2\n";
 			addData();
 			pressEnter();
 			break;
-		case 3: cout << "Test3\n";
+		case 3:
+			saveData();
+			cout << "Data saved.\n";
 			pressEnter();
 			break;
-		case 4: cout << "Test4\n";
+		case 4:
+			removeData();
 			pressEnter();
 			break;
 		case 5: exit(1);
+			break;
+		default:
+			cout << "Please pick a number between 1-5.\n";
+			pressEnter();
+			break;
 		}
 		cin.ignore();
 	}
@@ -107,14 +121,29 @@ void Hydro::menu()
 void Hydro::display()
 {
 	flowData->reset();
-	cout << setw(10) << underline << "Year" << CLOSEUNDERLINE << setw(8) << underline << "Flow (in billions of cubic meters)" << CLOSEUNDERLINE << endl;
+	cout << setw(10) << underline << "Year" << CLOSEUNDERLINE << setw(8) << underline << "Flow (in billions of cubic meters)" << CLOSEUNDERLINE << "" << endl;
 	while (flowData->isOn()) {
 		ListItem temp = flowData->getItem();
 		printElement(temp.year, temp.flow);
 		flowData->forward();
 	}
 	cout << "The annual average of the flow is: " << average() << " million cubic meters.\n";
-	cout << "The median flow is: " << median() << " million cubic meters.";
+	cout << "The median flow is: " << median() << " million cubic meters.\n";
+}
+
+void Hydro::removeData()
+{
+	int year;
+	cout << "Please enter the year you wish to remove.\n";
+	cin >> year;
+	if (flowData->isExist(year)) {
+		flowData->remove(year);
+		cout << "Successfully deleted year: " << year << endl;
+	}
+	else {
+		cout << "Error, no data for that year exists.\n";
+		return;
+	}
 }
 
 float Hydro::average()
@@ -125,6 +154,28 @@ float Hydro::average()
 float Hydro::median()
 {
 	return flowData->med();
+}
+
+void Hydro::saveData()
+{
+	const char *fname = "flow.txt";
+	ofstream outFile;
+	outFile.open(fname);
+	if (!outFile) {
+		cout << "Error opening file! Now exiting\n";
+		exit(1);
+	}
+	flowData->reset();
+	const Node *temp = flowData->cursor();
+	while (temp != NULL) {
+		int a;
+		float b;
+		a = temp->item.year;
+		b = temp->item.flow;
+		outFile << setw(10) << a << setw(15) << b << endl;
+		temp = temp->next;
+	}
+	outFile.close();
 }
 
 void Hydro::displayHeader() {

@@ -15,6 +15,8 @@ List::~List()
 {
 }
 
+
+
 float List::avg()
 {
 	Node *temp = headM;
@@ -28,16 +30,48 @@ float List::avg()
 
 float List::med()
 {
-	int const nodes = count();
+	int nodes = count();
 	float *array =new float[nodes];
-	cout << nodes << endl;
+	//cout << nodes << endl;
 	Node *temp = headM;
 	for (int i = 0; i < nodes; i++) {
-		array[i] = temp->item.flow;
-		cout << array[i]<<" "<<endl;
+		float tempp = temp->item.flow;
+		array[i] = tempp;
+		//cout << array[i]<<" "<<endl;
 		temp = temp->next;
 	}
-	return nodes;
+	bubbleSort(array, nodes);
+	//printArray(array, nodes);
+	if (nodes % 2 != 0)
+		return (double)array[nodes / 2];
+
+	return (double)(array[(nodes - 1) / 2] + array[nodes / 2]) / 2.0;
+}
+
+
+
+void List::swap(float * xp, float * yp)
+{
+	float temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+
+void List::bubbleSort(float arr[], int n)
+{
+	int i, j;
+	for (i = 0; i < n - 1; i++)
+		for (j = 0; j < n - i - 1; j++)
+			if (arr[j] > arr[j + 1])
+				swap(&arr[j], &arr[j + 1]);
+}
+
+void List::printArray(float arr[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		printf("%.3f ", arr[i]);
+	printf("\n");
 }
 
 bool List::isExist(int year)
@@ -94,7 +128,7 @@ void List::forward()
 void List::insert(const ListItem & itemA)
 {
 	if (isExist(itemA.year)) {
-		cout << "The entry for this year already exists!";
+		//cout << "The entry for this year already exists!";
 		return;
 	}
 	Node *new_node = new Node;
