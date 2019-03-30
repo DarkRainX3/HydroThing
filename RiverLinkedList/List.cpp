@@ -10,9 +10,24 @@ List::List()
 	headM = 0;
 }
 
+List::List(List & l)
+{
+	copy(l);
+}
+
 
 List::~List()
 {
+	destroy();
+}
+
+List& List::operator=(const List & l)
+{
+	if (this != &l) {
+		destroy();
+		copy(l);
+	}
+	return *this;
 }
 
 
@@ -199,7 +214,7 @@ void List::copy(const List & source)
 	}
 	else {
 		headM = 0;
-		cout << "List::copy was called.\n";
+		//cout << "List::copy was called.\n";
 		return;
 	}
 	Node *prev = headM;
@@ -212,7 +227,7 @@ void List::copy(const List & source)
 		cursor = cursor->next;
 	}
 
-	cout << "List::copy was called.\n";
+	//cout << "List::copy was called.\n";
 }
 
 void List::destroy()
@@ -224,7 +239,7 @@ void List::destroy()
 		delete(temp2);
 		temp2 = temp;
 	}
-	cout << "List::destroy was called List was destroyed.\n";
+	//cout << "List::destroy was called List was destroyed.\n";
 	headM = 0;
 }
 

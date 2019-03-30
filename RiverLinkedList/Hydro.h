@@ -6,22 +6,22 @@ class Hydro
 public:
 	Hydro();
 	~Hydro();
-	//********Dont copy*************//
+
 	void printElement(int year, double flow);
-	//*******************************//
+
 	int main();
 	void displayHeader();
-	void addData();
+	void addData(List &l);
 	int readData();
 	void menu();
-	void display();
+	void display(List &l);
 	void removeData();
-	float average();
-	float median();
+	float average(List &l);
+	float median(List &l);
 	void saveData();
 	void pressEnter();
 private:
-	List *flowData;
+	List flowData;
 	int numOfData = 0;
 };
 

@@ -14,10 +14,9 @@ class List
 {
 public:
 	List();
-
+	List(List& l);
 	~List();
-
-	//********************dont copy, these are custom functions**********//
+	List& operator=(const List &l);
 	float avg();
 	float med();
 	void swap(float *xp, float *yp);
@@ -25,8 +24,6 @@ public:
 	void printArray(float arr[], int size);
 	bool isExist(int year);
 	// PROMISES: returns true if year already exist in list.
-	//***************************************************//
-
 
 	const ListItem& getItem() const;
 	// REQUIRES: cursorM != NULL.

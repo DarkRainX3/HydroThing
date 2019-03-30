@@ -47,11 +47,25 @@ using namespace std;
 //	inFile.close();
 //	return counter;
 //}
+//void pressEnter() {
+//	cout << "\n<<<<Press Enter to Continue>>>>\n";
+//	do {
+//		
+//	} while (std::cin.get() != '\n');
+//	std::cin.ignore();
+//}
 
 int main()
 {
-	Hydro h = Hydro();
-	h.main();
+	//while (true) {
+	//	pressEnter();
+	//}
+	/*Test t1, t2; 
+	t2 = t1; Assignment operator called
+	Test t3 = t1; Copy constructor called*/
+	
+	Hydro *h = new Hydro();
+	h->main();
 	//flowData = new List();
 	//List *a = new List();
 	//List *b = new List();
